@@ -1,0 +1,17 @@
+-- REQUEST: Can you please add Q101 to F51569?
+-- First we should look and see what analytes are assigned to the sample(s).
+SELECT * FROM l_analysis_targets WHERE smpl_smpl_id =
+(SELECT smpl_id FROM l_samples WHERE lab_assigned_no = 'F51569');
+
+-- We will need to know the analyte_id for the requested analyte_code.
+SELECT analyte_id from l_analytes WHERE analyte_code = 'Q101'; --> 1365
+
+-- No we do the thing.  Make sure you insert the correct lab_assigned_no and analyte_id.
+INSERT INTO l_analysis_targets
+(anly_id,requested_analyte_flag,result_portion_a,detection_limit,uom_abbreviation,lbst_lbst_id,anlt_analyte_id,smpl_smpl_id)
+SELECT l_anly_seq.NEXTVAL,'Y',0,0,'AAAAA',0,1365,smpl_id FROM l_samples
+WHERE lab_assigned_no = 'F51569';
+
+-- Check to see that it happened.
+SELECT * FROM l_analysis_targets WHERE smpl_smpl_id =
+(SELECT smpl_id FROM l_samples WHERE lab_assigned_no = 'F51569');

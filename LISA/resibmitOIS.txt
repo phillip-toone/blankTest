@@ -1,0 +1,8 @@
+I executed the following SQL to generate the attached par file.
+
+SELECT DISTINCT flof_office_id, inspection_no, sampling_number, lbst_id
+FROM l_sample_sets, l_samples, l_analysis_targets, l_lab_sets 
+WHERE smst_smst_id = smst_id AND smpl_smpl_id = smpl_id AND lbst_lbst_id = lbst_id 
+AND inspection_no IN ('1756417') order by 2,3;
+
+I moved this file to file to the folder “D:\ois_xchng\responses\OIS\param” on the LISA server and executed the “D:/lims/shells/new_ois_run_lab_response_no_gen_list.bat” script to push this to OIS.  The transfer should take place overnight and be available in OIS tomorrow.
